@@ -3,6 +3,7 @@ import numpy as np
 import os
 import datetime
 import time
+import sys
 from rnn import RNN
 import data_helpers
 
@@ -10,8 +11,8 @@ import data_helpers
 # ==================================================
 
 # Data loading params
-tf.flags.DEFINE_string("pos_dir", "data/rt-polaritydata/rt-polarity.pos", "Path of positive data")
-tf.flags.DEFINE_string("neg_dir", "data/rt-polaritydata/rt-polarity.neg", "Path of negative data")
+tf.flags.DEFINE_string("pos_dir", "./data/rt-polaritydata/rt-polarity.pos", "Path of positive data")
+tf.flags.DEFINE_string("neg_dir", "./data/rt-polaritydata/rt-polarity.neg", "Path of negative data")
 tf.flags.DEFINE_float("dev_sample_percentage", .1, "Percentage of the training data to use for validation")
 tf.flags.DEFINE_integer("max_sentence_length", 100, "Max sentence length in train/test data (Default: 100)")
 
@@ -38,7 +39,8 @@ tf.flags.DEFINE_boolean("log_device_placement", False, "Log placement of ops on 
 
 
 FLAGS = tf.flags.FLAGS
-FLAGS._parse_flags()
+# FLAGS._parse_flags()
+FLAGS(sys.argv)
 print("\nParameters:")
 for attr, value in sorted(FLAGS.__flags.items()):
     print("{} = {}".format(attr.upper(), value))
